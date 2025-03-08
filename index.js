@@ -51,18 +51,18 @@ function render() {
           src="${posts[i].post}"
           alt="${posts[i].name} portrait"
         />
-      </section>
+      </section> 
       <section id="user-elements">
         <div class="user-elements-icons">
           <button class="like-btn" data-index="${i}">
-            <img src="/images/icon-heart.png" alt="heart icon" />
+            <img src="./images/icon-heart.png" alt="heart icon" />
           </button>
 
           <button>
-            <img  src="/images/icon-comment.png" alt="comment icon" />
+            <img  src="./images/icon-comment.png" alt="comment icon" />
           </button>
           <button>
-            <img src="/images/icon-dm.png" alt="private messege icon" />
+            <img src="./images/icon-dm.png" alt="private messege icon" />
           </button>
         </div>
         <div id="likes-section">
