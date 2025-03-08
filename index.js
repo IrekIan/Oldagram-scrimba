@@ -37,7 +37,7 @@ function render() {
       page.innerHTML += `
 
       <section id="user-name">
-        <img src="/${posts[i].avatar}" alt="${posts[i].name} Avatar" />
+        <img src="${posts[i].avatar}" alt="${posts[i].name} Avatar" />
         <div>
           <p class="source-sans-3-bold" id="user-name-p">${posts[i].name}</p>
           <p class="source-sans-3" id="user-location-p">${posts[i].location}</p>
@@ -48,7 +48,7 @@ function render() {
           class="content-photo-img"
           class="${posts[i].username}"
           data-index="${i}"
-          src="/${posts[i].post}"
+          src="${posts[i].post}"
           alt="${posts[i].name} portrait"
         />
       </section>
