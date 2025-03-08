@@ -28,64 +28,88 @@ const posts = [
     likes: 152,
   },
 ];
+
 let page = document.querySelector("#main-feed");
-function pageStart() {
-  page.innerHTML = `
-      <header>
-        <img id="header-logo" src="/images/logo.png" alt="Oldagram logo" />
-        <img id="user-avatar" src="/images/user-avatar.png" alt="User avatar" />
-      </header>
+
+function render() {
+  for (let i = 0; i < posts.length; i++) {
+    function pageStart() {
+      page.innerHTML += `
+
       <section id="user-name">
-        <img src="/${posts[0].avatar}" alt="${posts[0].name} Avatar" />
+        <img src="/${posts[i].avatar}" alt="${posts[i].name} Avatar" />
         <div>
-          <p class="source-sans-3-bold" id="user-name-p">${posts[0].name}</p>
-          <p class="source-sans-3" id="user-location-p">${posts[0].location}</p>
+          <p class="source-sans-3-bold" id="user-name-p">${posts[i].name}</p>
+          <p class="source-sans-3" id="user-location-p">${posts[i].location}</p>
         </div>
       </section>
       <section id="content-photo">
         <img
-          id="content-photo-img"
-          src="/images/post-vangogh.jpg"
-          alt="Vann Goh portreit"
+          class="content-photo-img"
+          class="${posts[i].username}"
+          data-index="${i}"
+          src="/${posts[i].post}"
+          alt="${posts[i].name} portrait"
         />
       </section>
       <section id="user-elements">
         <div class="user-elements-icons">
-          <button id="like-btn">
+          <button class="like-btn" data-index="${i}">
             <img src="/images/icon-heart.png" alt="heart icon" />
           </button>
 
           <button>
-            <img src="/images/icon-comment.png" alt="comment icon" />
+            <img  src="/images/icon-comment.png" alt="comment icon" />
           </button>
           <button>
             <img src="/images/icon-dm.png" alt="private messege icon" />
           </button>
         </div>
         <div id="likes-section">
-          <p class="source-sans-3-bold" id="likes-counter">207</p>
+          <p class="source-sans-3-bold ${posts[i].username} likes-counter" data-index="${i}">${posts[i].likes}</p>
           <p class="source-sans-3-bold">likes</p>
         </div>
         <div id="commment-section">
           <p class="commment-section-user-name source-sans-3-bold">
-            vincey1853
+            ${posts[i].username}
           </p>
           <p class="commment-section-comment source-sans-3">
-            just took a few mushrooms lol
+    ${posts[i].comment}
           </p>
         </div>
       </section>
   `;
+    }
+    pageStart();
+    eventListeners();
+  }
 }
-pageStart();
-// LIKE ACTIONS
-let likesCounter = document.querySelector("#likes-counter");
-let likeBtn = document.querySelector("#like-btn");
-let mainPic = document.querySelector("#content-photo-img");
 
-likeBtn.addEventListener("click", function () {
-  likesCounter.innerHTML = parseInt(likesCounter.innerHTML) + 1;
-});
-mainPic.addEventListener("dblclick", function () {
-  likesCounter.innerHTML = parseInt(likesCounter.innerHTML) + 1;
-});
+function eventListeners() {
+  let likesCounter = document.querySelectorAll(`.likes-counter`);
+  console.log(likesCounter);
+  let likeBtn = document.querySelectorAll(`.like-btn`);
+  let mainPic = document.querySelectorAll(".content-photo-img");
+
+  likeBtn.forEach((button) => {
+    button.addEventListener("click", function () {
+      let index = button.dataset.index;
+      let likeCounter = likesCounter[index];
+
+      posts[index].likes += 1;
+      likeCounter.innerHTML = posts[index].likes;
+    });
+  });
+
+  mainPic.forEach((pic) => {
+    pic.addEventListener("dblclick", function () {
+      let index = pic.dataset.index;
+      let likeCounter = likesCounter[index];
+
+      posts[index].likes += 1;
+      likeCounter.innerHTML = posts[index].likes;
+    });
+  });
+}
+
+render();
